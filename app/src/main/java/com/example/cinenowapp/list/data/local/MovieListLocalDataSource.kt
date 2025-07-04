@@ -4,8 +4,9 @@ import com.example.cinenowapp.common.data.local.MovieCategory
 import com.example.cinenowapp.common.data.local.MovieDao
 import com.example.cinenowapp.common.data.local.MovieEntity
 import com.example.cinenowapp.common.data.model.Movie
+import javax.inject.Inject
 
-class MovieListLocalDataSource(
+class MovieListLocalDataSource @Inject constructor(
     private val dao: MovieDao,
 ) : LocalDataSource {
     override suspend fun getNowPlayingMovies(): List<Movie> {

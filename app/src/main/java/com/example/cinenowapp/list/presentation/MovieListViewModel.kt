@@ -6,19 +6,23 @@ import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.AP
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
 import com.example.cinenowapp.CineNowApplication
+import com.example.cinenowapp.di.DispatcherIO
 import com.example.cinenowapp.list.data.MovieListRepository
 import com.example.cinenowapp.list.presentation.ui.MovieListUiState
 import com.example.cinenowapp.list.presentation.ui.MovieUiData
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import java.net.UnknownHostException
+import javax.inject.Inject
 
-class MovieListViewModel(
+@HiltViewModel
+class MovieListViewModel @Inject constructor(
     private val repository: MovieListRepository,
-    private val dispatcher: CoroutineDispatcher = Dispatchers.IO
+    @DispatcherIO private val dispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : ViewModel() {
 
     private val _uiNowPlaying = MutableStateFlow(MovieListUiState())
@@ -136,7 +140,7 @@ class MovieListViewModel(
     }
 
     private fun fetchUpcomingMovies() {
-        _uiTopRated.value = MovieListUiState(isLoading = true)
+        _uiUpcoming.value = MovieListUiState(isLoading = true)
         viewModelScope.launch(dispatcher) {
             val response = repository.getUpcoming()
             if (response.isSuccess) {
@@ -150,34 +154,18 @@ class MovieListViewModel(
                             image = movieDto.image
                         )
                     }
-                    _uiTopRated.value = MovieListUiState(list = movieUiDataList)
+                    _uiUpcoming.value = MovieListUiState(list = movieUiDataList)
                 }
             } else {
                 val ex = response.exceptionOrNull()
                 if (ex is UnknownHostException) {
-                    _uiTopRated.value = MovieListUiState(
+                    _uiUpcoming.value = MovieListUiState(
                         isError = true,
                         errorMessage = "Not internet connection"
                     )
                 } else {
-                    _uiTopRated.value = MovieListUiState(isError = true)
+                    _uiUpcoming.value = MovieListUiState(isError = true)
                 }
-            }
-        }
-    }
-
-
-    companion object {
-        val Factory: ViewModelProvider.Factory = object : ViewModelProvider.Factory {
-            @Suppress("UNCHECKED_CAST")
-            override fun <T : ViewModel> create(
-                modelClass: Class<T>,
-                extras: CreationExtras,
-            ): T {
-                val application = checkNotNull(extras[APPLICATION_KEY])
-                return MovieListViewModel(
-                    repository = (application as CineNowApplication).repository,
-                    ) as T
             }
         }
     }

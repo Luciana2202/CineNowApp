@@ -3,8 +3,9 @@ package com.example.cinenowapp.list.data.remote
 import android.accounts.NetworkErrorException
 import com.example.cinenowapp.common.data.local.MovieCategory
 import com.example.cinenowapp.common.data.model.Movie
+import javax.inject.Inject
 
-class MovieListRemoteDataSource(
+class MovieListRemoteDataSource @Inject constructor(
     private val listService: ListService,
 ) : RemoteDataSource {
 

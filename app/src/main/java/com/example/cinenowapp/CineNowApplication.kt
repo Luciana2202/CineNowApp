@@ -1,10 +1,7 @@
 package com.example.cinenowapp
 
 import android.app.Application
+import dagger.hilt.android.HiltAndroidApp
 
-class CineNowApplication : Application() {
-
-    val repository by lazy {
-        MovieNowLocalService.getRepository(this)
-    }
-}
+@HiltAndroidApp
+class CineNowApplication : Application()

@@ -17,12 +17,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.example.cinenowapp.detail.presentation.MovieDetailViewModel
 import com.example.cinenowapp.list.presentation.MovieListViewModel
 import com.example.cinenowapp.ui.theme.CineNowAppTheme
+import dagger.hilt.android.AndroidEntryPoint
 import kotlin.getValue
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-
-    private val listViewModel by viewModels<MovieListViewModel> { MovieListViewModel.Factory }
-    private val detailViewModel by viewModels<MovieDetailViewModel> { MovieDetailViewModel.Factory  }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,10 +32,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    MovieNowApp(
-                        listViewModel = listViewModel,
-                        detailViewModel = detailViewModel
-                    )
+                    MovieNowApp()
                 }
             }
         }

@@ -20,6 +20,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import com.example.cinenowapp.common.data.remote.model.MovieDto
@@ -30,7 +31,7 @@ import com.example.cinenowapp.ui.theme.CineNowAppTheme
 fun MovieDetailScreen(
     movieId: String,
     navHostController: NavHostController,
-    detailViewModel: MovieDetailViewModel
+    detailViewModel: MovieDetailViewModel = hiltViewModel(),
 ) {
     val movieDto by detailViewModel.uiMovie.collectAsState()
     detailViewModel.fetchMovieDetail(movieId)
@@ -46,7 +47,6 @@ fun MovieDetailScreen(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 IconButton(onClick = {
-                    detailViewModel.cleanMovieId()
                     navHostController.popBackStack()
                 }) {
                     Icon(
@@ -69,14 +69,15 @@ fun MovieDetailScreen(
 private fun MovieDetailContent(movie: MovieDto) {
     Column(
         modifier = Modifier.fillMaxSize()
-    ) { AsyncImage(
-        modifier = Modifier
-            .height(200.dp)
-            .fillMaxSize(),
-        contentScale = ContentScale.Crop,
-        model = movie.posterFullPath,
-        contentDescription = "${movie.title} Poster image"
-    )
+    ) {
+        AsyncImage(
+            modifier = Modifier
+                .height(200.dp)
+                .fillMaxSize(),
+            contentScale = ContentScale.Crop,
+            model = movie.posterFullPath,
+            contentDescription = "${movie.title} Poster image"
+        )
         Text(
             modifier = Modifier.padding(16.dp),
             text = movie.overview,

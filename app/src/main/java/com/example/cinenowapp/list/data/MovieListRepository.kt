@@ -2,10 +2,10 @@ package com.example.cinenowapp.list.data
 
 import com.example.cinenowapp.common.data.model.Movie
 import com.example.cinenowapp.list.data.local.LocalDataSource
-import com.example.cinenowapp.list.data.remote.MovieListRemoteDataSource
 import com.example.cinenowapp.list.data.remote.RemoteDataSource
+import javax.inject.Inject
 
-class MovieListRepository(
+class MovieListRepository @Inject constructor(
     private val local: LocalDataSource,
     private val remote: RemoteDataSource,
 ) {

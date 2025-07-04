@@ -11,7 +11,7 @@ import com.example.cinenowapp.list.data.remote.ListService
 import com.example.cinenowapp.list.data.remote.MovieListRemoteDataSource
 import com.example.cinenowapp.list.data.remote.RemoteDataSource
 
-object MovieNowLocalService {
+object MovieNowServiceLocator {
 
     fun getRepository(application: Application): MovieListRepository {
         val db by lazy {
