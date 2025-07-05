@@ -51,10 +51,10 @@ Inclui testes unitários para garantir a robustez da camada de lógica e dados.
 ## 🖼️ Capturas de Tela
 
 ### 🏠 Tela Principal
-<img src="images/tela_principal.png" width="300"/>
+<img src="tela_principal.png" width="300"/>
 
 ### 📄 Tela de Detalhes
-<img src="images/tela_detalhes.png" width="300"/>
+<img src="tela_detalhes.png" width="300"/>
 
 ---
 
