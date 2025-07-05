@@ -1,7 +1,3 @@
-<p align="center">
-  <img src="images/logo.png" width="120" alt="CineNowApp Logo" />
-</p>
-
 <h1 align="center">🎬 CineNowApp</h1>
 <p align="center">Descubra os melhores filmes em exibição, populares, lançamentos futuros e muito mais!</p>
 
